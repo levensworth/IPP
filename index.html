@@ -1,0 +1,956 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>[Python] Cheat Sheet</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="854e17b2-0f12-4c45-83d8-13417f384958" class="page sans"><header><h1 class="page-title">[Python] Cheat Sheet</h1></header><div class="page-body"><p id="6f35d476-35b7-43fd-846c-9dfe7f6129d6" class="">Este documento presenta un pequeño repaso sobre los conceptos fundamentales que vimos en la materia y que sirven para resolver los ejercicios. Bajo ningún punto asuma que esta lista repasa todos los conceptos necesarios para aprobar dicha materia.</p><hr id="c4ba14d4-8cdb-4d93-b234-b647bb8eaa79"/><h3 id="7bc06431-0717-4e82-9208-3418c2427876" class="">Types:</h3><p id="2da04c47-65e1-4564-a81b-fee51342bc08" class="">En todo lenguaje es importante entender los tipos de datos básicos que tenemos disponible. A continuación veremos un breve resumen de los tipos existentes en la distribución estándar de Python.</p><ul id="54e28d25-c88b-41ce-806e-f7818185d8b1" class="bulleted-list"><li>tipos de texto → <code>str</code></li></ul><ul id="2c50d010-bf69-4282-a4d1-a7d386de014b" class="bulleted-list"><li>tipos numéricos → <code>int</code> , <code>float</code> , <code>complex</code>*  </li></ul><ul id="a377f776-9bbb-40d2-8a22-188e8656a953" class="bulleted-list"><li>tipos de secuencias → <code>list</code> , <code>tuple</code> , <code>range</code> ** </li></ul><ul id="dc314e0b-51bb-4f83-b9a1-0cb6d1a3e173" class="bulleted-list"><li>tipos de mapas → <code>dict</code></li></ul><ul id="0eb36c12-4b63-4c98-8cdb-b1f203a53ed2" class="bulleted-list"><li>tipos de conjuntos → <code>set</code> , <code>frozenset</code> *</li></ul><ul id="0c4f085d-d24c-416f-ac04-7f1c6632d0f6" class="bulleted-list"><li>tipos booleanos → <code>bool</code> </li></ul><ul id="75122553-b037-4dcd-aa7a-fd7be4717e52" class="bulleted-list"><li>tipos binarios → <code>bytes</code>* , <code>bytearray</code>* , <code>memoryview</code> *</li></ul><ul id="83b79eda-07cf-42b7-8ca5-762ceb411dec" class="bulleted-list"><li>tipo nulo → <code>None</code></li></ul><ul id="c4614091-2173-40a3-904a-6a626caddf25" class="toggle"><li><details open=""><summary>Obs:</summary><p id="da6c5b59-cfea-4bf3-93e9-fa0c73fc7c2c" class=""><code>*</code> → no es utilizado en la materia</p><p id="c6c5867f-2406-45a9-b820-204a24ec66e1" class=""><code>**</code> → es un tipo especial de datos y lo veremos en profundidad</p><p id="db01b9ae-f4a8-4bfb-ab1d-e057d1d12fb8" class="">
+</p></details></li></ul><p id="eaa345fd-dcc3-47c1-9e28-0c1300a13947" class="">Es importante destacar aquellos factores característicos de cada tipo de datos nativo para tomar decisiones informadas.</p><div id="764bc857-49f2-4645-956a-43f8747336f5" class="collection-content"><h4 class="collection-title">Factores principales de cada tipo build-in</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Type name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Properties</th></tr></thead><tbody><tr id="7c9b5193-c91e-4ec2-8654-51f5e7e4a939"><td class="cell-title"><a href="https://www.notion.so/String-7c9b5193c91e4ec2865451f5e7e4a939">String</a></td><td class="cell-xt|S">Sirve para representar conjunto de caracteres.</td></tr><tr id="d556f23d-2c6a-4b88-a708-d05db05aea09"><td class="cell-title"><a href="https://www.notion.so/Integer-d556f23d2c6a4b88a708d05db05aea09">Integer</a></td><td class="cell-xt|S">El tipo entero es capaz de representar cualquier numero entero dentro de su capacidad de representación (existe el máximo pero es muy grande)</td></tr><tr id="92a3921f-8621-48a5-9674-b3a577737f17"><td class="cell-title"><a href="https://www.notion.so/Float-92a3921f862148a59674b3a577737f17">Float</a></td><td class="cell-xt|S">Los Float son capaces de representar números reales, tal como los integers tiene una limitación en cuanto a su capacidad de representación.</td></tr><tr id="6093dd19-39dd-437f-b977-973a14f9fc65"><td class="cell-title"><a href="https://www.notion.so/List-6093dd1939dd437fb977973a14f9fc65">List</a></td><td class="cell-xt|S">Las listas permiten agrupar ordenadamente cualquier conjunto de elementos.</td></tr><tr id="0d124ff3-00f1-467f-9d41-5e110c9f13e7"><td class="cell-title"><a href="https://www.notion.so/Tuple-0d124ff300f1467f9d415e110c9f13e7">Tuple</a></td><td class="cell-xt|S">Las tuplas, tienen un comportamiento idéntico a las listas con la particularidad que son inmutables. Esto último implica que no puede eliminarse ni agregarse elementos a una tupla. </td></tr><tr id="580c8da5-8127-4d3e-9411-742992e8a719"><td class="cell-title"><a href="https://www.notion.so/Dict-580c8da581274d3e9411742992e8a719">Dict</a></td><td class="cell-xt|S">Los diccionarios permiten generar un mapeo de tipo clave-valor entre elementos. Recordar que cualquier elemento de tipo clave debe tener una particularidad de ser &quot;hasheable&quot; por lo que se recomienda utilizar tipos numéricos o de texto.</td></tr><tr id="9f23eb7d-618e-4452-9b15-514f54287feb"><td class="cell-title"><a href="https://www.notion.so/Set-9f23eb7d618e44529b15514f54287feb">Set</a></td><td class="cell-xt|S">Los conjuntos no ordenados permiten hacer operar con aritméticas de conjuntos logrando obtener: la unión, la intersección, la diferencia y el complemento. Recordar que el set no permite repetidos.</td></tr><tr id="5b9663a6-01b5-4bcd-9e48-f2cac9dc8199"><td class="cell-title"><a href="https://www.notion.so/Bool-5b9663a601b54bcd9e48f2cac9dc8199">Bool</a></td><td class="cell-xt|S">Los booleanos solo tienen dos valores siendo True y False.</td></tr><tr id="8cecf820-99ba-49cf-9c21-bcd9166ed12c"><td class="cell-title"><a href="https://www.notion.so/NoneType-8cecf82099ba49cf9c21bcd9166ed12c">NoneType</a></td><td class="cell-xt|S">El elemento None pertenece a todos los tipos y representa el nulo de cada conjunto. Se puede considerar como la ausencia de un valor.</td></tr></tbody></table></div><p id="913329b3-a92a-4347-99bf-7bc5ca89a520" class="">
+</p><h3 id="18b30fc8-b8af-418c-9406-b890823ce3ad" class="">Casting:</h3><p id="2f2cb17c-c4ea-4da1-beea-a1502b6bfae5" class="">El casteo es la acción de tomar un valor de un tipo dado y transformarlo en su representación correspondiente en otro tipo. </p><p id="cf536625-570f-4e45-b523-4da6f34325b6" class="">Para los tipos Build-In encontramos que el lenguaje tiene funciones definidas para este propósito:</p><ul id="ad18b215-4ca9-4e0f-aeed-b2f0de03afc2" class="bulleted-list"><li><code>int()</code>  Nos permite pasar un valor de cualquier otro tipo a su representación entera. Siempre y cuando esta representación exista, la función devolvera un resultado, en caso contrario lanza un <code>error</code> .<p id="9a1abd56-1461-49bd-a31e-d751360f5fd2" class="">Ejemplo: </p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="092826ee-71f9-461d-9bf8-638ff8d3e107" class="code"><code><span class="token triple-quoted-string string">'''
+The following code will leave the int value of 17 asign to the variable age_as_int
+'''</span>
+age_as_txt <span class="token operator">=</span> <span class="token string">'17'</span>
+age_as_int <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>age_as_txt<span class="token punctuation">)</span>
+
+<span class="token triple-quoted-string string">'''
+The following code will not work because the text does not match with and actual integer
+'''</span>
+
+age_as_txt <span class="token operator">=</span> <span class="token string">"I'm 17"</span>
+age_as_int <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>age_as_txt<span class="token punctuation">)</span>
+
+<span class="token comment"># Obs! For all purposes think of each example as individual cases </span>
+<span class="token comment"># that do not share any relation.</span></code></pre></li></ul><ul id="c792bdba-8a73-4b42-bd89-d530c9e632b9" class="bulleted-list"><li><code>float()</code> Nos permite pasar un valor de cualquier tipo a su representación en números reales cuando dicha relación exista. Caso contrario lanza un <code>error</code> <p id="7d95a2c8-bff6-402a-8787-bc38535cf561" class="">Ejemplo:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="3a11dee5-fc0e-4d72-ba91-5d6ab53e7778" class="code"><code><span class="token triple-quoted-string string">'''
+The following code will leave the float value of 17 asign to the variable asg_as_float
+'''</span>
+
+age_as_txt <span class="token operator">=</span> <span class="token string">'17'</span>
+age_as_float <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span>age_as_txt<span class="token punctuation">)</span>
+
+<span class="token triple-quoted-string string">'''
+The following code does not work because there is no relationship between does values.
+'''</span>
+age_as_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span>
+age_as_float <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span>age_as_list<span class="token punctuation">)</span></code></pre></li></ul><ul id="13753dce-a360-453f-ae92-564bbf1adf6b" class="bulleted-list"><li><code>str()</code> Nos permite obtener la representación de un valor en su formato texto. <p id="4092b440-e9a4-4157-8e39-e88d8c019ca6" class="">Ejemplo:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="fe553d68-6b1e-48a8-ba0d-114425c47cdc" class="code"><code>this_is_a_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">'leo'</span><span class="token punctuation">,</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">4.5</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+this_is_text <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">(</span>this_is_a_list<span class="token punctuation">)</span>
+<span class="token comment"># if we print the value of 'this_is_text' we obtain the following:</span>
+<span class="token comment"># >>> print(this_is_text)</span>
+<span class="token comment"># >>> '[1,2,3, 'leo', 'Alice', (1.0, 4.5)]'</span></code></pre></li></ul><p id="22997e4b-35eb-4185-95c2-a3be425c2efe" class="">
+</p><ul id="7882c3c7-69ef-4965-b157-9357110b1ebf" class="bulleted-list"><li><code>list()</code> Permite generar una lista de cualquier valor que sea <code>iterable</code>. <p id="26f88f34-cbc1-4e00-a990-6846d147b7d1" class="">Ejemplo:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="1ffa766f-b85f-4830-bf6a-c626813e08b4" class="code"><code>text <span class="token operator">=</span> <span class="token string">'this is a sequence of characters'</span>
+text_as_list <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+<span class="token comment"># as a result we cna operate with the same value form the perspective of a list</span>
+
+<span class="token triple-quoted-string string">'''
+The following example does not work because the numeric value is not an iterable
+'''</span>
+number <span class="token operator">=</span> <span class="token number">1</span>
+number_as_list <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>number<span class="token punctuation">)</span>
+</code></pre></li></ul><p id="e0dc8827-86e0-4046-bbc9-5dd5db362bcc" class="">
+</p><h1 id="9322c243-ca71-4a39-a69f-2a4717f6fac3" class="">Sequence Handling:</h1><p id="6c66cdac-30d3-4aa4-944a-984b43ffda36" class="">En Python encontramos 4 tipos build-in para el manejo de colecciones que son: <code>list</code> , <code>tuple</code> , <code>dict</code> , <code>set</code> . Cada uno tiene sus fortalezas y sus cualidades que lo hacen especialmente útil para diferentes situaciones. </p><p id="c7d5140f-1310-4e32-9357-c4d3c864d2e1" class="">Dichos tipos comparten ciertas características:</p><ul id="77170f41-dad8-4e46-a6fe-bb82f81299f9" class="bulleted-list"><li>Son <code>iterables</code> por lo que se puede utilizar un <code>for</code> para iterar por cada valor de la colección.</li></ul><ul id="e1c0df85-0b88-4b6b-bfb4-697a95f732ee" class="bulleted-list"><li>Tienen una cardinalidad (cantidad de elementos) asociada. Esto significa que se puede aplicar la función <code>len()</code> y obtener un resultado.</li></ul><ul id="ae8881aa-5bec-4168-a40f-a75ff287764c" class="bulleted-list"><li>Tienen la posibilidad de trabajar con aritmética de conjuntos según las limitaciones de cada tipo.</li></ul><h2 id="9fc63c58-be56-4f49-b356-7c7f9e0c81fd" class="">List:</h2><p id="d7bd599e-9af8-4bd3-8b2a-bf64f6aada93" class="">Nos permiten coleccionar multiples valores bajo una sola variable. Acepta repetidos y modificaciones, eliminaciones e inserciones.</p><p id="0dd5e3b0-3d9e-401e-9de8-1153c106dc8b" class="">Las listas son ordenables, por lo que si los elementos tienen un &quot;orden natural&quot; python nos permite ordenar dichos elementos.</p><p id="8bfc898b-395e-4f23-81d7-eb494497f808" class="">Como las listas son un tipo de conjunto, las mismas pueden unirse.</p><p id="90048e27-6e6f-4784-aa08-89100797be50" class="">
+</p><ul id="50d62bf9-a6a8-4991-9506-a76122deefcb" class="bulleted-list"><li>Creación de una lista:<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="614e785a-93a0-4642-ba4a-448705e98be9" class="code"><code><span class="token comment"># Using [ and ]</span>
+a_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>
+
+<span class="token comment"># using the special function list</span>
+a_list <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment"># Note that we are using double (( and ))</span></code></pre><p id="a12f6876-e452-4d17-bf7f-f36894601e4d" class="">
+</p></li></ul><ul id="5e409302-40a1-4c64-aa2b-895e7c54762a" class="bulleted-list"><li>Operaciones:<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="08a53228-f3ca-4ed9-9fe1-ce1f70f6b1c3" class="code"><code><span class="token comment"># Modify:</span>
+
+a_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+a_list<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'2'</span>
+
+<span class="token triple-quoted-string string">'''
+Now if we print the value:
+>>> print(a_list)
+>>> [1, '2', 3]
+'''</span>
+
+<span class="token comment"># Insertion:</span>
+a_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+a_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token comment"># add new item to the end of the list</span>
+a_list<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token comment"># will insert the value 4 at the 2 position (zero base index)</span>
+<span class="token triple-quoted-string string">'''
+As a result of the above:
+>>> print(a_list)
+>>> [1, 5, 2, 3, 4]
+'''</span>
+
+<span class="token comment"># Deletion:</span>
+a_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+a_list<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># removes the last item and returns the value</span>
+a_list<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment"># removes the item at the specified position</span>
+<span class="token triple-quoted-string string">'''
+As a result:
+>>> print(a_list)
+>>> [2]
+'''</span>
+
+<span class="token comment"># applying len</span>
+
+a_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>
+<span class="token triple-quoted-string string">'''
+In the case of lists, len returns the amaunt of items inside the collection
+>>> len(a_list)
+>>> 3
+'''</span>
+
+<span class="token comment"># using a list as argument of a for-loop</span>
+
+<span class="token keyword">for</span> number <span class="token keyword">in</span> a_list<span class="token punctuation">:</span>
+	<span class="token keyword">print</span><span class="token punctuation">(</span>number<span class="token punctuation">)</span>
+
+<span class="token triple-quoted-string string">'''
+The above code will produce the following output:
+>>> 1
+>>> 23
+>>> 4
+'''</span>
+
+<span class="token comment"># Join 2 lists</span>
+
+a_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+another_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span>
+a_list<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>another_list<span class="token punctuation">)</span>
+final_list <span class="token operator">=</span> a_list
+<span class="token comment"># also you can simply 'add' both lists</span>
+final_list <span class="token operator">=</span> a_list <span class="token operator">+</span> another_list
+<span class="token triple-quoted-string string">'''
+As a result of the above code:
+>>> final_list
+>>> [1, 2, 3, 4, 3, 5]
+'''</span></code></pre><p id="4dcdb3eb-e565-4e1d-9361-dcf1f9889377" class="">
+</p><div id="770614f4-837f-4726-8f1e-968d1291fdff" class="collection-content"><h4 class="collection-title">Operadores sobre listas</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Nombre</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Descripción</th></tr></thead><tbody><tr id="28313b72-08e4-4044-b213-efcc6fc7b288"><td class="cell-title"><a href="https://www.notion.so/append-28313b7208e44044b213efcc6fc7b288">append()</a></td><td class="cell-}`[&lt;">Inserta al final de la lista</td></tr><tr id="e04ac8dd-aa38-449d-bc81-08a6a7050743"><td class="cell-title"><a href="https://www.notion.so/clear-e04ac8ddaa38449dbc8108a6a7050743">clear()</a></td><td class="cell-}`[&lt;">elimina todos los elementos de una lista</td></tr><tr id="500ef9f3-3a63-4c18-9b53-94c46f182860"><td class="cell-title"><a href="https://www.notion.so/copy-500ef9f33a634c189b5394c46f182860">copy()</a></td><td class="cell-}`[&lt;">retorna una copia de la lista (shallow copy)</td></tr><tr id="ea587d5e-e53e-4b92-959c-86c19dde5d89"><td class="cell-title"><a href="https://www.notion.so/count-ea587d5ee53e4b92959c86c19dde5d89">count()</a></td><td class="cell-}`[&lt;">retorna el número de elementos con su valor sociado</td></tr><tr id="6da5b083-a678-4977-81bf-01a1b8a5d4f3"><td class="cell-title"><a href="https://www.notion.so/extend-6da5b083a678497781bf01a1b8a5d4f3">extend()</a></td><td class="cell-}`[&lt;">inserta los elementos de cualquier iterable al final de la lista actual</td></tr><tr id="dc4bee82-6c90-406d-8f81-c2037b600674"><td class="cell-title"><a href="https://www.notion.so/index-dc4bee826c90406d8f81c2037b600674">index()</a></td><td class="cell-}`[&lt;">retorna el primer indice de aquel elemento que coincide en valor</td></tr><tr id="2cde83bc-bfbd-4c4c-8b82-d149bb4ac16e"><td class="cell-title"><a href="https://www.notion.so/insert-2cde83bcbfbd4c4c8b82d149bb4ac16e">insert()</a></td><td class="cell-}`[&lt;">Inserta un valor en la posición indicada</td></tr><tr id="ffb06329-2127-4378-a575-76b19077a77b"><td class="cell-title"><a href="https://www.notion.so/pop-ffb0632921274378a57576b19077a77b">pop()</a></td><td class="cell-}`[&lt;">Elimina un valor en la posición indicada. Por Default es el último</td></tr><tr id="0700cec6-9fc6-48ec-8afe-291c86e75480"><td class="cell-title"><a href="https://www.notion.so/reverse-0700cec69fc648ec8afe291c86e75480">reverse()</a></td><td class="cell-}`[&lt;">ordena la lista en sentido inverso al actual</td></tr><tr id="f52df34d-a75b-40ab-8bbb-d7eca1196992"><td class="cell-title"><a href="https://www.notion.so/sort-f52df34da75b40ab8bbbd7eca1196992">sort()</a></td><td class="cell-}`[&lt;">Ordena la lista según el orden natural de sus elementos</td></tr></tbody></table></div><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="89512758-b6f9-4c61-9456-29e04ba46d9d"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><code>sort</code> toma el valor de orden natural entre los elementos, es decir el orden que conocen entre números. Intente entender como es su comportamiento con el resto de los tipos.
+Describa como se comporta el el siguiente ejemplo
+<code>lista = [3, 4, 5, 1, &#x27;a&#x27;]</code>
+<code>lista.sort()</code></div></figure><p id="8b2b47d9-e615-4c19-aa4e-22539ebd5446" class="">
+</p></li></ul><p id="2aff28bf-3757-4c30-9b13-7263caaace0a" class="">
+</p><h3 id="16247df0-ab7f-48e2-a37b-d2341474d9f2" class="">Tuple:</h3><p id="c52a450e-1cf5-4dac-a059-39984cf2a8f4" class="">Las tuplas nos permiten tener seguridad de que <strong>una vez creadas no serán modificadas</strong>.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="744ff1ad-ce34-458e-a091-214660dfa7a5" class="code"><code><span class="token comment"># Creation using ( )</span>
+a_tuple <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token comment"># Creation using function</span>
+a_tuple <span class="token operator">=</span> <span class="token builtin">tuple</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Len function</span>
+<span class="token triple-quoted-string string">'''
+The len function returns the amount of elements inside the tuple.
+>>> len(a_tuple)
+>>> 4
+'''</span>
+
+<span class="token comment"># Join 2 tuples</span>
+a_tuple <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span>
+another_tuple <span class="token operator">=</span> <span class="token builtin">tuple</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">89</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+final_tuple <span class="token operator">=</span> a_tuple <span class="token operator">+</span> another_tuple
+
+<span class="token triple-quoted-string string">'''
+With tuples we can only add tuples by creating a new one.
+>>> final_tuple
+>>> (1, 2, 4, 6, 7, 89)
+'''</span></code></pre><p id="27d1058e-b6e7-4314-84ec-35a0fdd42f77" class="">
+</p><div id="580328f2-7fb9-4e30-ad24-e2756913ef57" class="collection-content"><h4 class="collection-title">Operadores sobre Tuplas</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Nombre</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Descripción</th></tr></thead><tbody><tr id="f87e6cc0-bd36-4851-aca8-97ff1a7eaa5f"><td class="cell-title"><a href="https://www.notion.so/count-f87e6cc0bd364851aca897ff1a7eaa5f">count()</a></td><td class="cell-aWSo">Devuelve la cantidad de ocurrencias del elemento especificado</td></tr><tr id="e7a1171d-d9cf-4baa-9caa-52dd709d3d29"><td class="cell-title"><a href="https://www.notion.so/index-e7a1171dd9cf4baa9caa52dd709d3d29">index()</a></td><td class="cell-aWSo">busca el valor especificado en la tupla y devuelve su primer ocurrencia</td></tr><tr id="ad5ef164-57e7-4087-a5aa-722f604d5da3"><td class="cell-title"><a href="https://www.notion.so/ad5ef16457e74087a5aa722f604d5da3">Untitled</a></td><td class="cell-aWSo"></td></tr></tbody></table></div><h2 id="f8f3dcc6-ea59-4cd9-9bb0-29a806c8a136" class="">Set:</h2><p id="9c98814e-7557-477b-a918-2a92e3a3ff8f" class="">Los conjuntos no ordenados (<code>sets</code>) tienen la particularidad de que <strong>no son ordenados </strong>y <strong>no son indexables. </strong>Estas características hacen que el <code>slicing</code> y el <code>sort</code>ing no sean aplicables.</p><p id="fb076462-7852-4552-9e41-fb15a17b71d5" class="">→ Los <code>sets</code> permiten trabajar aritménticamente como los diagramas de Venn.</p><p id="376e7d72-7c6d-4c73-a036-ed85ae7579f8" class="">→ No permiten duplicados!</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="173a7349-7358-44f3-8b67-0bd26e997b1c" class="code"><code><span class="token comment"># Creation</span>
+a_set <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token comment"># Do notice that sets can only be created by the use of the set function</span>
+
+<span class="token comment"># Sets are useful to eliminate duplicates</span>
+a_set <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+When you create a set, it removes all duplicates. The order isn't guaranteed
+>>> a_set
+>>> [1, 4]
+'''</span>
+
+<span class="token comment"># Len </span>
+a_set <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+When calling the len function, it returns the amount of unique values it contains.
+>>> len(a_set)
+>>> 4
+'''</span>
+
+<span class="token comment"># Venn's operations</span>
+
+<span class="token comment"># union</span>
+
+a_set <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+another_set <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+final_set <span class="token operator">=</span> a_set <span class="token operator">+</span> another_set
+<span class="token triple-quoted-string string">'''
+The + sign symbolize the union for sets.
+>>> final_set
+>>> [1, 2, 3, 4, 5]
+Order not guaranteed
+'''</span>
+
+<span class="token comment"># Diference</span>
+a_set <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+another_set <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+final_set <span class="token operator">=</span> a_set <span class="token operator">-</span> another_set
+<span class="token triple-quoted-string string">'''
+The - sign symbolize the diference between sets
+>>> final_set
+>>> [2]
+'''</span>
+
+<span class="token comment"># Intersection</span>
+<span class="token comment"># You can infer this one ;)</span>
+
+<span class="token comment"># Adding element</span>
+a_set <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+a_set<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment"># in this case, the operation does nothing because the set already contains the element</span>
+a_set<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span> <span class="token comment"># this adds the value fo 5 to the set</span>
+<span class="token triple-quoted-string string">'''
+The operation only takes effect if the value isn't already contained.
+>>> a_set
+>>> [1, 2, 3, 5]
+Order not guaranteeed
+'''</span>
+
+<span class="token comment"># Deletion</span>
+a_set <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+a_set<span class="token punctuation">.</span>remove<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token comment"># removes the specified element</span>
+a_set<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># removes a random element</span>
+
+<span class="token triple-quoted-string string">'''
+Pyhton presents 2 method for deletion, remove let us specified the element to be removed.
+While pop removes whichever elements happens to be at the last position of the set at the moment.
+>>> a_set
+>>> [1] or [2]
+We can't be sure as the pop call could have remove either
+'''</span>
+
+<span class="token comment"># Using sets in for-loops</span>
+a_set <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> elem <span class="token keyword">in</span> a_set<span class="token punctuation">:</span>
+	<span class="token keyword">print</span><span class="token punctuation">(</span>elem<span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+The above code will produce the following output, order is not guaranteed:
+>>> 1
+>>> 23
+>>> 4
+>>> 5
+>>> 6
+'''</span>
+
+</code></pre><p id="321dfa4f-a543-4f9e-a44c-63380b99a3fd" class="">
+</p><div id="61eb7568-dc0c-4212-8a39-47c6f7488adf" class="collection-content"><h4 class="collection-title">Operadores sobre Sets</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Nombre</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Descripción</th></tr></thead><tbody><tr id="c3539f4a-2dc6-43d6-b5ea-925591e94ee4"><td class="cell-title"><a href="https://www.notion.so/add-c3539f4a2dc643d6b5ea925591e94ee4">add()</a></td><td class="cell-LKb}">Inserta un nuevo elemento en el set, solo si este no se encuentra</td></tr><tr id="7c72cbb8-f035-4408-a999-77693d20ec75"><td class="cell-title"><a href="https://www.notion.so/clear-7c72cbb8f0354408a99977693d20ec75">clear()</a></td><td class="cell-LKb}">Elimina todos los elementos</td></tr><tr id="9f3ccd52-568d-4c31-88ac-0874f370d634"><td class="cell-title"><a href="https://www.notion.so/copy-9f3ccd52568d4c3188ac0874f370d634">copy()</a></td><td class="cell-LKb}">Shallow copy de los elementos del set</td></tr><tr id="5a0758d1-5557-49f2-a977-5398108d1be1"><td class="cell-title"><a href="https://www.notion.so/difference-5a0758d1555749f2a9775398108d1be1">difference()</a></td><td class="cell-LKb}">retorna la diferencia entre 2 o más sets</td></tr><tr id="9cc6817d-81c4-4dc2-80b4-117e2f36833f"><td class="cell-title"><a href="https://www.notion.so/difference_update-9cc6817d81c44dc280b4117e2f36833f">difference_update()</a></td><td class="cell-LKb}">remueve los elementos del set actual que se encuentren en otro set</td></tr><tr id="7b7fa29c-4c77-47dd-b830-f5b0e0c1a748"><td class="cell-title"><a href="https://www.notion.so/discar-7b7fa29c4c7747ddb830f5b0e0c1a748">discar()</a></td><td class="cell-LKb}">si el elemento especificado se encuentra en el set, se lo remueve</td></tr><tr id="206b75db-698c-4eb7-9685-5f820cb3ac34"><td class="cell-title"><a href="https://www.notion.so/intersection-206b75db698c4eb796855f820cb3ac34">intersection()</a></td><td class="cell-LKb}">retorna la intersección entre 2 sets</td></tr><tr id="12551bba-b73b-4321-bd94-8696347a131e"><td class="cell-title"><a href="https://www.notion.so/intersection_update-12551bbab73b4321bd948696347a131e">intersection_update()</a></td><td class="cell-LKb}">remueve los elementos del set actual que no se encuentren en el otro set</td></tr><tr id="8a496cda-1d1c-4c7a-ab47-27e1e8b3a1f9"><td class="cell-title"><a href="https://www.notion.so/isdisjoint-8a496cda1d1c4c7aab4727e1e8b3a1f9">isdisjoint()</a></td><td class="cell-LKb}">retorna si el set actual es disjunto respecto del otro o no</td></tr><tr id="ecd8f4b1-2859-45e8-97ed-7cb48afdba6a"><td class="cell-title"><a href="https://www.notion.so/issubset-ecd8f4b1285945e897ed7cb48afdba6a">issubset()</a></td><td class="cell-LKb}">retorna si el set actual es un subconjunto del otro</td></tr><tr id="446c12e4-a31e-4060-8798-ad53d54678d0"><td class="cell-title"><a href="https://www.notion.so/issuperset-446c12e4a31e40608798ad53d54678d0">issuperset()</a></td><td class="cell-LKb}">retorna si el set actual es un superset del otro</td></tr><tr id="e1cf93f5-9241-4feb-8126-3930889ae45e"><td class="cell-title"><a href="https://www.notion.so/pop-e1cf93f592414feb81263930889ae45e">pop()</a></td><td class="cell-LKb}">remueve el elemento que se encuentre en la última posición a la hora de ejecutarlo</td></tr><tr id="45cb8712-bdfa-4f30-b1dc-694eafd4bb91"><td class="cell-title"><a href="https://www.notion.so/remove-45cb8712bdfa4f30b1dc694eafd4bb91">remove()</a></td><td class="cell-LKb}">remueve un elemento especificado del set, si el mismo no se encuentra lanza un error</td></tr><tr id="1b9d0ab5-20ba-4871-964e-086d0dc6968d"><td class="cell-title"><a href="https://www.notion.so/symmetric_difference-1b9d0ab520ba4871964e086d0dc6968d">symmetric_difference()</a></td><td class="cell-LKb}">retorna un nuevo set con los elementos de la diferencia simétrica entre el set actual y el otro</td></tr><tr id="6282166f-673c-46bf-96f5-15a990c49582"><td class="cell-title"><a href="https://www.notion.so/symmetric_difference_update-6282166f673c46bf96f515a990c49582">symmetric_difference_update()</a></td><td class="cell-LKb}">inserta los elementos del set actual que se encuentren en la diferencia simétrica con el otro set</td></tr><tr id="78bc9b49-9959-41f4-90e8-48252d6e0e96"><td class="cell-title"><a href="https://www.notion.so/union-78bc9b49995941f490e848252d6e0e96">union()</a></td><td class="cell-LKb}">devuelve la unión del set actual con el otro</td></tr><tr id="dc2e228d-b341-4000-be65-f080848ac1e0"><td class="cell-title"><a href="https://www.notion.so/update-dc2e228db3414000be65f080848ac1e0">update()</a></td><td class="cell-LKb}">modifica el set actual para insertar la unión con el otro</td></tr></tbody></table></div><p id="e58da863-052e-4034-8f00-833bc52c59dd" class="">
+</p><h2 id="90da4214-9f49-4c53-9c28-491305dbac69" class="">Dict:</h2><p id="b66e839c-5f8f-4aa0-9f9e-b8aaf7de107d" class="">Los diccionarios son colecciones de elementos <code>clave-valor</code> , para generalidad de este curso tomaremos que son <strong>NO ordenados, modificables y no permiten repetidos.</strong></p><p id="56671e09-0e26-4266-8f01-322319913eb0" class="">Los diccionarios mantienen valores en pares <code>key:value</code> , donde las claves no pueden repetirse y deben ser <strong>Hasheables. </strong></p><ul id="6f4fd53e-90de-4dd0-bbad-a3796fd3b678" class="bulleted-list"><li>El uso de corchetes en <code>dicts</code> hace referencia al componente <code>key</code> del par. Si se ejecuta una asignación, modificamos el <code>value</code> y si lo usamos en la referencia estamos accediendo al <code>value</code> .</li></ul><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="689b4aea-b395-4b88-974e-ca658492b5d8" class="code"><code><span class="token comment"># Creation</span>
+a_dict <span class="token operator">=</span> <span class="token punctuation">{</span>
+	<span class="token string">'key_1'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+	<span class="token string">'key_2'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+	<span class="token string">'key_3'</span><span class="token punctuation">:</span> <span class="token number">3</span>
+	<span class="token punctuation">}</span>
+
+a_dict <span class="token operator">=</span> <span class="token builtin">dict</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># empty dict</span>
+
+<span class="token comment"># Insert element</span>
+a_dict <span class="token operator">=</span> <span class="token builtin">dict</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+a_dict<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'hi!'</span> <span class="token comment"># the key 2 contains the value of 'hi!'</span>
+
+a_dict<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'something else'</span> <span class="token comment"># inserting another value to the same key replaces the value</span>
+<span class="token triple-quoted-string string">'''
+Insertion of keys replaces the last known value
+>>> a_dict
+>>> {2: 'something else'}
+'''</span>
+
+<span class="token comment"># Access Item</span>
+a_dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span>
+<span class="token triple-quoted-string string">'''
+To acces a value just reference the key, in case the key does not exist python raise an Error
+>>> a_dict['a']
+>>> 1
+
+You can also use the get function with 2 arguments.
+a_dict.get(key, default) where key means the key you want to access and the default is 
+the specified value to return in case the key does not exist (by default is None).
+>>> a_dict.get('n', False)
+>>> False
+'''</span>
+
+<span class="token comment"># Remove item:</span>
+a_dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span>
+a_dict<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span> <span class="token comment"># this will remove the pair which key value is 'a'</span>
+<span class="token triple-quoted-string string">'''
+Dictionaries pay special attention to keys, so to remove a value you need to specify
+the key which contains that value.
+>>> a_dict
+>>> {'b': 2}
+'''</span>
+
+<span class="token comment"># keys</span>
+a_dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span>
+keys <span class="token operator">=</span> a_dict<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span> 
+<span class="token triple-quoted-string string">'''
+the keys function returns a list of all available keys within the dict
+>>> keys
+>>> ['a', 'b']
+Assume unordered list
+'''</span>
+
+<span class="token comment"># values</span>
+a_dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span>
+vals <span class="token operator">=</span> a_dict<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+the values function returns a list containing all values
+>>> values
+>>> [1, 2]
+Assume unordered
+'''</span>
+
+<span class="token comment"># items</span>
+a_dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span>
+items <span class="token operator">=</span> a_dict<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+The items function returns a list of pairs key-value 
+>>> items
+>>> [('a', 1), ('b', 2)]
+Assume unordered
+'''</span>
+
+<span class="token comment"># len</span>
+a_dict <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span>
+<span class="token triple-quoted-string string">'''
+Len function returns the amount of items a dictionary contains
+>>> len(a_dict)
+>>> 2
+'''</span></code></pre><p id="5f5a8b96-8343-46ca-9951-2c77090b5bd1" class="">
+</p><div id="9232ab39-5546-4592-b20b-e273847b9f59" class="collection-content"><h4 class="collection-title">Operadores sobre diccionarios</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Nombre</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Descripción</th></tr></thead><tbody><tr id="3b9429d1-3fe4-40b5-bf7e-83a3385c8040"><td class="cell-title"><a href="https://www.notion.so/clear-3b9429d13fe440b5bf7e83a3385c8040">clear()</a></td><td class="cell-~lro">remueve todos los elementos del diccionario</td></tr><tr id="dffb0a57-b87d-4cf7-81a8-88f772b67a7a"><td class="cell-title"><a href="https://www.notion.so/copy-dffb0a57b87d4cf781a888f772b67a7a">copy()</a></td><td class="cell-~lro">retorna una shallow copy del diccionario</td></tr><tr id="7cfac731-e8a5-4647-b39e-0727ddcc74ba"><td class="cell-title"><a href="https://www.notion.so/fromkeys-7cfac731e8a54647b39e0727ddcc74ba">fromkeys()</a></td><td class="cell-~lro">retorna un nuevo diccionario con las keys y values especificados</td></tr><tr id="63e10993-1f7c-4504-961a-0bb32a7a1936"><td class="cell-title"><a href="https://www.notion.so/get-63e109931f7c4504961a0bb32a7a1936">get()</a></td><td class="cell-~lro">retorna el valor de la key especificada, o el default en caso de no encontrarla</td></tr><tr id="2b7c2b83-0b64-4dca-a94d-e1139f9a6771"><td class="cell-title"><a href="https://www.notion.so/items-2b7c2b830b644dcaa94de1139f9a6771">items()</a></td><td class="cell-~lro">retorna una lista con los pares key-value del diccionario</td></tr><tr id="9446e235-41b5-4659-b3b9-3aee00d8c692"><td class="cell-title"><a href="https://www.notion.so/keys-9446e23541b54659b3b93aee00d8c692">keys()</a></td><td class="cell-~lro">retorna una lista con las claves del diccionario</td></tr><tr id="3f37e72d-7b59-40be-9e4c-ee665ca757dd"><td class="cell-title"><a href="https://www.notion.so/values-3f37e72d7b5940be9e4cee665ca757dd">values()</a></td><td class="cell-~lro">retorna una lista con los valores del diccionario</td></tr><tr id="e25314b2-00b6-453a-a971-b9abe621e6ec"><td class="cell-title"><a href="https://www.notion.so/pop-e25314b200b6453aa971b9abe621e6ec">pop()</a></td><td class="cell-~lro">remueve el valor del la clave especificada</td></tr><tr id="3cb78445-838a-4736-bee3-972b645d277d"><td class="cell-title"><a href="https://www.notion.so/setdefault-3cb78445838a4736bee3972b645d277d">setdefault()</a></td><td class="cell-~lro">retorna el valor de la key, en caso de no existir settea el valor especificado en dicha clave</td></tr><tr id="d46c14c2-44cd-4bd9-a889-af168b24c0be"><td class="cell-title"><a href="https://www.notion.so/update-d46c14c244cd4bd9a889af168b24c0be">update()</a></td><td class="cell-~lro">actualiza el diccionario con los key-value pairs especificados</td></tr></tbody></table></div><p id="808d942a-2e54-49ba-975d-a3d5665ce75a" class="">
+</p><h3 id="58e7b6e3-fa05-4a80-8a90-658e1f52810f" class="">Slicing</h3><p id="f22c236f-b0f0-4143-81b7-b104dbf839c0" class="">Las secuencias (incluidos los strings) tienen la posibilidad de tomar <code>slice</code>s o sub conjuntos de los mismos. </p><p id="d79030ae-1349-4631-825f-470cfb8b06cd" class="">Ejemplos:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="54576452-05f9-4a8f-b85c-b0245a4b674d" class="code"><code><span class="token comment"># List</span>
+a_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">]</span>
+
+a_list<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment"># => [6,7,8]</span>
+a_list<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token comment"># => 8</span>
+a_list<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token comment"># => [1, 2, 3]</span>
+a_list<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token comment"># => [4] </span>
+
+<span class="token comment"># Tuple</span>
+a_tuple <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span>
+
+a_tuple<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment"># => [6,7,8]</span>
+a_tuple<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token comment"># => 8</span>
+a_tuple<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token comment"># => [1, 2, 3]</span>
+a_tuple<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token comment"># => [4] </span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="0cf1462f-e3ed-4c95-ba39-fe9a57c200e0"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Recordar que por default Python toma la convención de que los intervalos son de tipo semi-abiertos a derecha (incluir el primer elemento pero no el último). 
+Matemáticamente:
+ConjuntoA = [desde, hasta_sin_incluir)</div></figure><p id="100c123d-6912-413d-8b57-ed94aad1607e" class="">
+</p><p id="d7baa15a-b69a-4854-8c42-fa7b8f25d999" class="">
+</p><h3 id="2b35b9ad-7587-43ea-a9af-57f6efe26fa8" class="">String Manipulation:</h3><p id="3b66b0f9-b069-4ba0-bd86-e9f33bfcb2ea" class="">El tipo de String es muy utilizado, el mismo representa text en forma de una colección ordenada de caracteres (símbolos). </p><p id="9f765b2c-a18e-48a9-a647-8d60d6bf4d44" class="">
+</p><div id="6af5963c-a514-4d47-989b-11c42e7933f9" class="collection-content"><h4 class="collection-title">Operadores para Strings</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Nombre</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Descripción</th></tr></thead><tbody><tr id="3a010e1e-599b-46ca-a89e-c7c6088eb64c"><td class="cell-E{_z">capitalize()</td><td class="cell-title"><a href="https://www.notion.so/convierte-el-primer-car-cter-en-may-scula-3a010e1e599b46caa89ec7c6088eb64c">convierte el primer carácter en mayúscula.</a></td></tr><tr id="9b71085b-b604-4143-b98a-bdced8b122ba"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_casefold.asp">casefold()</a></td><td class="cell-title"><a href="https://www.notion.so/convierte-el-texto-en-min-scula-9b71085bb6044143b98abdced8b122ba">convierte el texto en minúscula</a></td></tr><tr id="d1084e91-873d-4a58-8e7a-763206cb1fa6"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_count.asp">count()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-la-cantidad-de-veces-que-un-car-cter-especificado-se-utiliza-en-el-string-d1084e91873d4a588e7a763206cb1fa6">retorna la cantidad de veces que un carácter especificado se utiliza en el string</a></td></tr><tr id="44582341-65ee-4cf4-bed8-7acb18d1ddb5"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_endswith.asp">endswith()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-True-si-el-string-termina-con-el-valor-especificado-4458234165ee4cf4bed87acb18d1ddb5">retorna True si el string termina con el valor especificado</a></td></tr><tr id="95657c20-a25c-48d5-b70a-86305f6ffcc6"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_expandtabs.asp">expandtabs()</a></td><td class="cell-title"><a href="https://www.notion.so/settea-el-tama-o-de-los-tabs-95657c20a25c48d5b70a86305f6ffcc6">settea el tamaño de los tabs</a></td></tr><tr id="9e5ef945-ad39-4fb1-b720-a8d78028ee2a"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_find.asp">find()</a></td><td class="cell-title"><a href="https://www.notion.so/Busca-el-valor-especificado-y-retorna-la-posici-n-donde-se-encuentra-o-1-en-caso-contrario-9e5ef945ad394fb1b720a8d78028ee2a">Busca el valor especificado y retorna la posición donde se encuentra o -1 en caso contrario</a></td></tr><tr id="fcb0f634-bb61-44e3-a786-d54b6793e217"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_format.asp">format()</a></td><td class="cell-title"><a href="https://www.notion.so/aplica-un-formato-especificado-sobre-el-string-fcb0f634bb6144e3a786d54b6793e217">aplica un formato especificado sobre el string</a></td></tr><tr id="2e815bf5-30cd-403d-b008-281de5d04045"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_index.asp">index()</a></td><td class="cell-title"><a href="https://www.notion.so/Idem-find-2e815bf530cd403db008281de5d04045">Idem find()</a></td></tr><tr id="6ea002f6-a6c5-40f6-bcda-9a15ba28cc1e"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_isalnum.asp">isalnum()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-True-si-todos-los-caracteres-del-string-son-alfanum-ricos-6ea002f6a6c540f6bcda9a15ba28cc1e">retorna True si todos los caracteres del string son alfanuméricos</a></td></tr><tr id="3691472a-4ab0-476a-9c18-cd2fbc9ee5c5"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_isalpha.asp">isalpha()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-True-si-todos-los-valores-del-string-est-n-en-la-el-alfabeto-3691472a4ab0476a9c18cd2fbc9ee5c5">retorna True si todos los valores del string están en la el alfabeto</a></td></tr><tr id="8862fc65-fb04-4725-b671-8e61b2cc3da8"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_isdecimal.asp">isdecimal()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-True-si-todos-los-valores-del-string-son-decimales-8862fc65fb044725b6718e61b2cc3da8">retorna True si todos los valores del string son decimales</a></td></tr><tr id="53fff73b-6100-4db8-9a23-4997f4d34e84"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_isdigit.asp">isdigit()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-True-si-todos-los-valores-del-string-son-digitos-53fff73b61004db89a234997f4d34e84">retorna True si todos los valores del string son digitos</a></td></tr><tr id="400de3ec-eb55-4058-9ddf-55a5b3b622ae"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_isidentifier.asp">isidentifier()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-true-si-el-string-es-un-identificador-v-lido-alfanum-rico-o-_-400de3eceb5540589ddf55a5b3b622ae">retorna true si el string es un identificador válido (alfanumérico o _)</a></td></tr><tr id="79d68436-4516-438d-9875-243e2a6d69e0"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_islower.asp">islower()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-True-si-todos-los-valores-del-string-son-min-sculas-79d684364516438d9875243e2a6d69e0">retorna True si todos los valores del string son minúsculas</a></td></tr><tr id="b313ba34-35bd-4b94-b404-9f52f935c413"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_isnumeric.asp">isnumeric()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-True-si-todos-los-valores-del-string-son-num-ricos-b313ba3435bd4b94b4049f52f935c413">retorna True si todos los valores del string son numéricos</a></td></tr><tr id="2fc8ccd3-6ed9-4237-8453-4d882f5e0e60"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_isprintable.asp">isprintable()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-True-si-todos-los-valores-del-string-son-printables-ascii-2fc8ccd36ed9423784534d882f5e0e60">retorna True si todos los valores del string son printables (ascii)</a></td></tr><tr id="e183d4a5-a83c-4662-a3d8-3abd5a856f8d"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_isspace.asp">isspace()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-True-si-todos-los-valores-del-string-son-espacios-e183d4a5a83c4662a3d83abd5a856f8d">retorna True si todos los valores del string son espacios</a></td></tr><tr id="1b2d7be8-6748-4a22-8126-ae04c3bbd12a"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_isupper.asp">isupper()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-True-si-todos-los-valores-del-string-son-may-sculas-1b2d7be867484a228126ae04c3bbd12a">retorna True si todos los valores del string son mayúsculas</a></td></tr><tr id="be0c8127-b8f7-45a1-904e-aeb873c5d1a1"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_join.asp">join()</a></td><td class="cell-title"><a href="https://www.notion.so/Inserta-los-valores-del-un-elemento-iterable-en-el-final-del-string-be0c8127b8f745a1904eaeb873c5d1a1">Inserta los valores del un elemento iterable en el final del string</a></td></tr><tr id="af35a47a-c8a5-44bc-a1ca-b546479c8c99"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_lower.asp">lower()</a></td><td class="cell-title"><a href="https://www.notion.so/convierte-un-string-en-min-suclas-af35a47ac8a544bca1cab546479c8c99">convierte un string en minúsuclas</a></td></tr><tr id="133a692b-1209-4894-a26b-e651dc91e51b"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_lstrip.asp">lstrip()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-un-string-sin-espacio-a-izquierda-133a692b12094894a26be651dc91e51b">retorna un string sin espacio a izquierda</a></td></tr><tr id="688779ce-0672-4eaf-a7d9-2184f8972fad"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_replace.asp">replace()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-un-string-donde-el-valor-especificado-fue-reemplazado-688779ce06724eafa7d92184f8972fad">retorna un string donde el valor especificado fue reemplazado </a></td></tr><tr id="f441cbdf-8195-4f76-afb4-97878a2ec668"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_rfind.asp">rfind()</a></td><td class="cell-title"><a href="https://www.notion.so/Busca-el-valor-especificado-y-retorna-su-ltima-aparici-n-o-1-f441cbdf81954f76afb497878a2ec668">Busca el valor especificado y retorna su última aparición o -1 </a></td></tr><tr id="51327ea5-5c2f-43b5-b852-6eba8536a44e"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_rindex.asp">rindex()</a></td><td class="cell-title"><a href="https://www.notion.so/idem-rfind-51327ea55c2f43b5b8526eba8536a44e">idem rfind()</a></td></tr><tr id="0d48a51c-d875-4a73-b2ab-6f15f957c99d"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_rsplit.asp">rsplit()</a></td><td class="cell-title"><a href="https://www.notion.so/divide-un-string-en-el-identificador-especificado-y-retorna-una-lista-con-sus-partes-0d48a51cd8754a73b2ab6f15f957c99d">divide un string en el identificador especificado y retorna una lista con sus partes</a></td></tr><tr id="d8a67c70-a012-47cb-94f6-ce8ecc016951"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_rstrip.asp">rstrip()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-un-string-sin-espacios-a-derecha-d8a67c70a01247cb94f6ce8ecc016951">retorna un string sin espacios a derecha</a></td></tr><tr id="168beaad-70a8-4378-a09e-b1b632988d5f"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_split.asp">split()</a></td><td class="cell-title"><a href="https://www.notion.so/idem-rsplit-168beaad70a84378a09eb1b632988d5f">idem rsplit()</a></td></tr><tr id="d89e357f-d1c0-4939-bc46-cb5b9cc3b002"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_splitlines.asp">splitlines()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-una-lista-con-el-valor-de-cada-rengl-n-d89e357fd1c04939bc46cb5b9cc3b002">retorna una lista con el valor de cada renglón</a></td></tr><tr id="8e1cb4c1-92d3-496f-a8da-2f77cf0b187c"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_startswith.asp">startswith()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-True-si-el-string-comienza-con-el-valor-especificado-8e1cb4c192d3496fa8da2f77cf0b187c">retorna True si el string comienza con el valor especificado</a></td></tr><tr id="01bbce83-c7b8-4919-bbc1-ba6201fbfdff"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_strip.asp">strip()</a></td><td class="cell-title"><a href="https://www.notion.so/retorna-un-string-sin-espacios-a-izquierda-ni-a-derecha-01bbce83c7b84919bbc1ba6201fbfdff">retorna un string sin espacios a izquierda ni a derecha</a></td></tr><tr id="2365b4bb-0e28-4d09-91d8-06f7e70cacec"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_swapcase.asp">swapcase()</a></td><td class="cell-title"><a href="https://www.notion.so/cambia-may-sculas-por-min-sculas-y-viceversa-2365b4bb0e284d0991d806f7e70cacec">cambia mayúsculas por minúsculas y viceversa</a></td></tr><tr id="80691fe8-0d10-4bd5-9fba-489866d16a07"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_title.asp">title()</a></td><td class="cell-title"><a href="https://www.notion.so/convierte-el-primer-car-cter-de-cada-palabra-en-may-scula-80691fe80d104bd59fba489866d16a07">convierte el primer carácter de cada palabra en mayúscula</a></td></tr><tr id="f691af60-dc61-47ce-b2f0-3173ae66c936"><td class="cell-E{_z"><a href="https://www.w3schools.com/python/ref_string_upper.asp">upper()</a></td><td class="cell-title"><a href="https://www.notion.so/convierte-el-string-en-may-sculas-f691af60dc6147ceb2f03173ae66c936">convierte el string en mayúsculas</a></td></tr></tbody></table></div><p id="38ce41a0-d669-475c-a4cc-3e0c9b85f5e6" class="">
+</p><p id="2213bff2-7ce0-454c-8cbd-69479afb5ed8" class="">
+</p></div></article></body></html>
