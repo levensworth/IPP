@@ -1,0 +1,763 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>[Python] Cheat Sheet 2</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="873903eb-b927-40cc-be62-e24219fdebcc" class="page sans"><header><h1 class="page-title">[Python] Cheat Sheet 2</h1></header><div class="page-body"><p id="c8131bb6-7059-4e76-af88-ada10bd37571" class="">Este documento contiene información que orienta al lector para su entendimiento de las estructuras de flujo que se utilizan en el lenguaje Python. tenga en cuenta que no es una lista completa ni atenta serlo.</p><p id="495d47ff-aff2-422a-b472-fc2187b50c0d" class="">
+</p><hr id="050b504a-334c-4a44-99db-e9467286e3d7"/><h1 id="915f707b-1098-4c2b-a104-b6a62d326c3e" class="">Condicional:</h1><p id="6707bc07-fa45-4648-8df3-61de6dc8f16a" class="">La estructura de control de flujo por default en el lenguaje es el condicional. Dicha estructura viene a representar el siguiente diagrama de flujo:</p><p id="41b0d445-35ca-45b0-82eb-b796566f61d0" class=""> </p><figure id="3c55863d-7d5a-4e11-b6b8-c42ffc7f5f8b" class="image"><a href="%5BPython%5D%20Cheat%20Sheet%202%203c55863d7d5a4e11b6b8c42ffc7f5f8b/Untitled.png"><img style="width:582px" src="%5BPython%5D%20Cheat%20Sheet%202%203c55863d7d5a4e11b6b8c42ffc7f5f8b/Untitled.png"/></a><figcaption>Source: <a href="https://www.tutorialspoint.com/python/python_decision_making.htm">https://www.tutorialspoint.com/python/python_decision_making.htm</a></figcaption></figure><h3 id="0cdd1067-6348-4ff8-9e98-852daa916a3c" class="">IF:</h3><p id="732ca4e3-49f0-4e4d-a8e0-0cc2df5bbc27" class="">El condicional más simple es el simple <code>if</code> el cual plantea que un bloque de código se ejecuta solo si se cumple una condición.</p><p id="7fc46c76-3e1a-44b1-83b1-7cf550b915c3" class="">El siguiente fragmento muestra el uso básico de dicha estructura:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="1e41068d-45e4-4f69-a588-afc3f793c483" class="code"><code><span class="token comment"># Complete If statemente</span>
+
+<span class="token keyword">if</span> condition<span class="token punctuation">:</span>
+	<span class="token triple-quoted-string string">'''
+	Do stuff here ...
+	'''</span></code></pre><p id="ae4262bb-3f70-44a5-9d1d-43a503346338" class="">En este ejemplo vemos el uso de un simple bloque <code>if</code> , dicha estructura comienza por el uso de la palabra reservada <code>if</code> seguida de una condición* que arroje algún valor de verdad (de tipo <code>bool</code> ) y finalmente el uso de <code>:</code> para simboliza que termina la definición de la condición a utilizar. Luego, en la linea siguiente (puede dejarse la cantidad de lineas en blanco que se deseen) debe venir un <code>bloque</code> ** de código indentado con 4 espacios desde el nivel de indentación que tenga el respectivo <code>if</code> .</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="eb91399e-4f81-4601-81be-6da3416ec7ff"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">* La condición es cualquier fragmento de código Python válido que al computarlo termine dando un valor bool. Esto incluye pero no se limita a :
+Ej:
+→ valores de tipo Bool
+→ Operaciones lógicas (comparación, buscar por el igual, etc)
+→ retornos de función</div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="849e5c3f-d7a8-46ff-b625-da177d88e5fb"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">** un <code>bloque</code> de código se considera a cualquier secuencia de código válida.
+Ej:<code>
+var = &#x27;text&#x27;
+print(&quot;hola&quot;)
+break</code>
+Son secuencias válidas, como todas las ya vistas en clase.</div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="11380b89-167d-42d3-b734-0226b7aa32f6"><div style="font-size:1.5em"><span class="icon">🗣</span></div><div style="width:100%">El valor <code>None</code> se evalúa como un False dentro de Python. Mientras que la presencia de cualquier elemento distinto de <code>None</code> (<code>int</code> , <code>float</code> , colleciones, etc) es considerada como <code>True</code> . Esto es por el modo de implementación que tiene el lenguaje y no se recomienda su uso.</div></figure><h3 id="a5bdaeb0-3c8e-4eb0-acb8-6ecee52c7ab3" class="">IF - ELSE :</h3><p id="acf0d156-daa1-41cc-a5ca-19c7d1545181" class="">Vimos el uso de un simple condicional, donde si la condición se cumple el bloque de código se ejecuta pero en caso contrario el programa sigue de largo. Hay casos donde depende del valor de una condición debemos tomar una decisión que si o si modifica el flujo del programa. Estos casos hace uso del <code>if-else</code> statement.</p><p id="df77180b-a3be-43d5-8107-b642477de5ea" class="">El siguiente fragmento muestra su uso:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="d582792f-1681-4b3f-9d55-1473a2d7c3d5" class="code"><code><span class="token comment"># If else</span>
+<span class="token keyword">if</span> condition<span class="token punctuation">:</span>
+	<span class="token triple-quoted-string string">'''
+	Do stuff here if condition is True
+	'''</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+	<span class="token triple-quoted-string string">'''
+	Do stuff here if condition is False
+	'''</span>
+
+<span class="token triple-quoted-string string">'''
+The code continues here ...
+'''</span></code></pre><p id="a63df3e9-596f-4bc0-8555-7c4c5dde2686" class="">En este fragmento vemos el uso de la palabra reservada <code>if</code> seguida del predicado <code>condition</code> * y luego el uso de los <code>:</code> para simbolizar que la condición de decisión finalizó. El bloque que corresponde al código que debe ejecutarse en caso de que dicha condición se cumpla será el primer bloque <strong>indentado </strong>que el sistema encuentre. Luego debe utilizarse la palabra reservada <code>else</code> seguida de los <code>:</code> para indicar que a continuación se encuentra el bloque de código que corresponde al caso que la condición se falsa. Este segundo bloque debe tener el mismo nivel de indentación que el que se utilizó para especificar el bloque de la condición positiva.</p><p id="e55df141-4ea2-48b9-a5f6-b4f9048d863e" class="">
+</p><h3 id="c4fd6c05-c8a3-4011-b41c-9d7473b344bc" class="">ELIF:</h3><p id="81ab153c-3cea-4a24-9bfe-f7c1076aadb1" class="">cuando queremos evaluar multiples condiciones las cuales son mutuamente excluyentes, se recomienda el uso del <code>elif</code> . En este caso veamos un ejemplo a modo de clarificar la idea:</p><p id="ba462106-2465-4e56-a340-b9f9fbbd82b5" class="">Si tenemos que imprimir la relación de un número con respecto a un intervalo dado que:</p><p id="b94238e4-a06b-4ece-9879-84b2aa0364a4" class="">→ Si n es menor que el limite inferior, imprimir &quot;Es inferior&quot;</p><p id="b67cdd53-45a3-4e8b-a75f-b705df0a1368" class="">→ Si n está dentro de los límites, imprimir &quot;Incluido&quot;</p><p id="29146740-8f19-4dd3-8b6b-064ec3a75ed0" class="">→ Si n es superior al límite superior, imprimir &quot;Es superior&quot;</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="142ff079-c944-4f9b-8acf-c21fe5f1b5ce" class="code"><code><span class="token comment"># elif example:</span>
+n <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"ingrese un numero"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+min_interval <span class="token operator">=</span> <span class="token number">18</span>
+max_interval <span class="token operator">=</span> <span class="token number">100</span>
+
+<span class="token keyword">if</span> n <span class="token operator">&lt;</span> min_interval<span class="token punctuation">:</span>
+	<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Es inferior"</span><span class="token punctuation">)</span>
+<span class="token keyword">elif</span> n <span class="token operator">></span> max_interval<span class="token punctuation">:</span>
+	<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Es superior"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+	<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Incluido"</span><span class="token punctuation">)</span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="ccffd33f-eb38-49eb-bd3a-1a30bd59bbd7"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">Notar que en el ejemplo, el uso de <code>elif</code> nos obliga a prestar especial atención en el orden de las condiciones. Dado que el mismo puede alterar el resultado final de la ejecución.</div></figure><p id="72fd2ef5-13e5-46cf-9978-2f38fc0425fa" class="">
+</p><h1 id="7aa0d4f9-424b-46bf-aa03-b4f6adfba11c" class="">Iteración:</h1><p id="35aaf688-2a76-4d3a-ba1a-701e5277be50" class="">La segunda estructura muy utilizada del lenguaje es la iteración sobre algún tipo de colección o condición. En este caso veremos que Python nos permite el uso de 2 estructuras para este objetivo. </p><h3 id="44035a7a-d03b-4dcd-bff3-d18e1d5544ce" class="">FOR:</h3><p id="0455a179-cca6-4a1d-8c28-094dd6e296af" class="">El primer elemento que veremos es el <code>for</code> dicha estructura tiene como objetivo iterar sobre una colección limitada de elementos sobre los que se quiere aplicar alguna transformación o se los quiere utilizar para operar.</p><p id="79514b59-b151-4f73-b649-6b11f2219d63" class="">La estructura es la siguiente:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="72998e67-7f97-4aed-a04b-d6c56582b656" class="code"><code><span class="token comment"># For</span>
+<span class="token keyword">for</span> loop_item <span class="token keyword">in</span> collection<span class="token punctuation">:</span>
+	<span class="token triple-quoted-string string">'''
+	Code which executes one for each element in the collection.
+	take into account that the value of loop_item will change in each iteration to a different element.
+	'''</span></code></pre><p id="4159ba30-5ae6-4342-9693-0d56408b5318" class="">En este caso vemos que la estructura comienza con el uso de la palabra reservada <code>for</code> seguido de la definición de una <strong>variable de iteración</strong>*, luego se indica la palabra reservada <code>in</code> para indicar el conjunto de iteración (collection) y finalmente el uso de <code>:</code> para indicar que terminó la definición del conjunto.</p><p id="a7f36722-c263-454a-ae1f-e577d8b5143e" class="">El bloque de código a ejecutar por cada iteración debe estar indentado 4 espacio desde el nivel de indentación de la palabra <code>for</code> . Es importante remarcar que dicho código se va a ejecutar una vez por cada elemento del conjunto collection, en cada ciclo la variable loop_item tomará un valor nuevo del conjunto.</p><p id="acb2ed7b-fe6a-4732-a78e-f669e0523869" class=""> </p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="74a85060-2f76-4d9a-ba50-cd6e3b64917e"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">* la variable de iteración toma la asignación por el sistema al comienzo del bloque. Es decir que en cada <strong>loop</strong> ya tiene un valor asignado de la colección.  Esta variable es de scope local al <code>for</code> y al finalizar cada loop la misma es reasignada por el propio sistema con lo cual no debemos hacernos cargo. </div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="99c001e6-7d2e-44c6-b960-b22c0ff97fc7"><div style="font-size:1.5em"><span class="icon">🗣</span></div><div style="width:100%">Debemos entender que el bloque de iteración se ejecuta una vez por cada elemento del conjunto de iteración. El valor de loop_item y como el mismo se modificará depende el tipo de conjunto, en caso de listas se iteran secuencialmente de izquierda a derecha pero los sets no tienen orden estipulado.</div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e332ece2-6201-46c3-b88b-8d32b496e64f"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">la palabra reservada <code>in</code> se utiliza para indicar que una variable o valor se encuentra dentro de un conjunto.
+su uso en condiciones sería:
+<code>if 1 in (1, 2, 3, ):</code></div></figure><p id="344a84bc-29ec-458f-a7ca-67ee58659ec0" class="">
+</p><h3 id="7229de78-bcf7-4d17-812c-30bf533f9f69" class="">While: </h3><p id="3ca57cbb-2bd7-406e-bfca-312e779cef0a" class="">La otra estructura que Python nos deja disponibles para iterar es el <code>while</code> dicha estructura tiene  uso cuando nos interesa ejecutar un ciclo según el valor de una condición que conocemos o para ciclos infinitos.</p><p id="8a4cdc40-544b-44cd-9c14-186aa7311396" class="">Su estructura es la siguiente:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="25f60248-6503-49ad-8115-f76f2f15cb2d" class="code"><code><span class="token comment"># While</span>
+<span class="token keyword">while</span> condition<span class="token punctuation">:</span> 
+	<span class="token triple-quoted-string string">'''
+	Do stuff here
+	'''</span></code></pre><p id="3f85f4f5-38fb-4dd7-9c09-654b3f472bcb" class="">La estructura comienza con la palabra reservada <code>while</code> seguida de un predicado que se evalúe a un valor bool y finalmente el uso de los <code>:</code> para indicar el final de la condición.</p><p id="c90198f8-529d-4694-85be-f4053b499529" class="">Es importante entender que el predicado se evalúa antes de cada iteración. Es decir que solo se efectúa el ciclo si la condición es verdadera, en caso contrario omite todo el bloque de código indentado 4 espacios desde el nivel de indentación que tenga la palabra <code>while</code> .</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="f744c59e-48a1-4741-90bd-a57e4d6ad704"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Cuando hablamos de predicado es el mismo concepto que la condición de un <code>if</code> .</div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="d5be914a-6b5d-4c1e-a2d9-dff7bf5ac1ff"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">La estructura de <code>while</code> no nos asegura que termine de ejecutar en algún momento, ya que si la condición se mantiene verdadera el código seguirá ejecutando infinitas veces. Este problema ocurre frecuentemente cuando la ejecución del bloque de iteración no ejerce alguna modificación sobre aquello que se efectúa la condición.</div></figure><p id="0d1eaf0b-2d8a-46be-a774-f2410c07aed7" class="">
+</p><p id="f5ac6a77-b41c-4f11-8b59-898f7b2776e1" class="">
+</p><hr id="13e3317a-cad3-41fb-8d1a-e4a7848b0368"/><p id="fe0ae309-6935-4459-9079-605ad5978bec" class="">
+</p><h1 id="156ab102-6e3a-47ff-8b15-94182d00d24e" class="">Funciones [Parte I]:</h1><p id="201fa23c-e06e-454e-83b9-49ab512f472f" class="">En todo lenguaje de programación el concepto de funciones es primordial y permite acelerar y expandir el desarrollo de software a los niveles que están acostumbrados hoy en día. </p><p id="e83903af-9578-4328-a4c3-26a527dd2622" class="">su estructura es la siguiente:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="b6213050-63fb-421d-886a-ed81426f1b5d" class="code"><code><span class="token comment"># FUNCTIONS:</span>
+
+<span class="token comment"># example with arguemnts</span>
+<span class="token keyword">def</span> <span class="token function">function_name</span><span class="token punctuation">(</span>arg1<span class="token punctuation">,</span> arg2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token triple-quoted-string string">'''
+	Do stuff here
+	'''</span>
+
+
+<span class="token comment"># example with return statement</span>
+<span class="token keyword">def</span> <span class="token function">function_return</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token triple-quoted-string string">'''
+	This function, expects name to be a string.
+	It returns the value in upper case.
+	'''</span>
+	<span class="token keyword">return</span> name<span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># example with no arguments</span>
+<span class="token keyword">def</span> <span class="token function">greetings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello World!"</span><span class="token punctuation">)</span>
+
+</code></pre><p id="15d73583-1947-41a2-9c20-f76a3d1b2e17" class="">En estos ejemplos vemos que la definición de una función comienza con el uso de la palabra reservada <code>def</code> seguido de un identificador válido que será la forma en que podemos llamar a la función, luego vienen los <code>(</code> y <code>)</code> entre los cuales pondremos  los <strong>argumentos</strong> de la función y finalmente terminamos la estructura con el uso de <code>:</code> para indicar el comienzo del bloque de código que ejecuta al función.</p><p id="9aaa50b2-f8b6-47de-b642-08cd20692a19" class="">Esencialmente las funciones son una forma de reutilizar un procedimiento multiples veces sin necesidad de reescribirlo. Esto está fuertemente ligado al concepto de <strong>Modularización </strong>que significa romper un problema complejo es pequeñas partes más simples que son fácilmente resolubles y así obtener una solución al problema principal.</p><p id="5c026a67-e506-4a34-af80-69ae93696188" class="">Las funciones, como ya dijimos son una forma de condensar un bloque de código que queremos reutilizar en multiples ocaciones sin tener que reescribirlo. Las mismas tienen la particularidad de que a veces queremos o necesitamos que el procedimiento que vamos a aplicar sea dependiente de un dato que esta sujeto a cuando <strong>aplicamos dicho procedimeinto. </strong>Para expresa estas partes móviles del procedimiento que representa una función, utilizamos los <strong>Argumentos</strong>, que simplemente son los identificadores que mencionamos entre los <code>()</code>  en al definición de la función. Estos identificadores son variables que se pueden utilizar dentro de la función tienen la particularidad de que van a tener el valor que nos indiquen cuando se <strong>invoque </strong>la función.</p><p id="e6792d53-e760-430c-b117-aa268a299061" class="">
+</p><h3 id="de194d67-91b0-4438-a26e-7ad29ce1bad0" class="">Invocación:</h3><p id="12285922-328e-44d2-9070-728395b112fe" class="">vimos que las funciones son una forma de empaquetar un código que utilizaremos muchas veces. Pero como todo paquete, debe tener una forma de recibir mensajes desde afuera y una forma de devolver los resultados que ejerce. </p><p id="f10c9d9b-b23e-44b2-8771-9076784da706" class="">La primera parte, <em>recibir</em> se logra mediante el uso de los Argumentos. Si pensamos en las funciones definidas en el bloque anterior:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="4b60b046-4fe9-4158-be02-d02a7426c362" class="code"><code><span class="token comment"># invocation</span>
+<span class="token comment"># I want to print my name in uppercase</span>
+uppercase_name <span class="token operator">=</span> function_return<span class="token punctuation">(</span><span class="token string">"emily"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>uppercase_name<span class="token punctuation">)</span>
+<span class="token comment"># which after execution of the function will be</span>
+uppercase_name <span class="token operator">=</span> <span class="token string">"EMILIY"</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>uppercase_name<span class="token punctuation">)</span>
+
+<span class="token comment"># ======================================</span>
+<span class="token comment"># the above code could be translate into:</span>
+uppercase_name  <span class="token operator">=</span> name<span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token string">"emily"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>uppercase_name<span class="token punctuation">)</span></code></pre><p id="25aba7f0-b226-4ffa-8ba1-00526dbfa6f8" class="">En este ejemplo la estamos llamando a ejecutar el bloque de código definido bajo el identificador <code>function_return</code> , especificando que el valor de su argumento <code>name</code> en este caso será el string <code>&quot;emily&quot;</code> . </p><p id="552afa96-491e-418f-9882-de743a43e367" class="">Ahora, dicha función ejecuta una operación (en este caso es pasar todas las letras a mayúscula) y nos interesa obtener ese resultado nuevamente. Para ello se hace uso de la palabra reservada <code>return</code> , esta indica que la función termina y que devuelve el valor indicado a continuación de <code>return</code> como resultado de su invocación.</p><p id="e4f7e00b-82af-4597-9f91-655bf5eae110" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="922f4621-b31f-423e-a2df-dffaea7cf360"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">El orden de los argumentos es importante a la hora de invocar una función!</div></figure><p id="69736c20-0ed9-445a-bb60-089c663652b3" class="">Las funciones pueden tener multiples argumentos, los mismos en esos casos la invocación será de la siguiente forma:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="bfc433c7-3412-4a11-b7f2-7c2b15d93315" class="code"><code><span class="token keyword">def</span> <span class="token function">multiple_args</span><span class="token punctuation">(</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> arg3<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">return</span> <span class="token boolean">None</span>
+
+
+<span class="token comment"># Multiple Args Inv</span>
+
+value_1 <span class="token operator">=</span> <span class="token number">1</span>
+value_2 <span class="token operator">=</span> <span class="token number">2</span>
+value_3 <span class="token operator">=</span> <span class="token number">3</span>
+
+multiple_args<span class="token punctuation">(</span>value_1<span class="token punctuation">,</span> value_2<span class="token punctuation">,</span> value_3<span class="token punctuation">)</span></code></pre><p id="65b07a25-1a42-4296-88ee-b6742cc06b13" class="">En este caso, al invocar la función <code>multiple_args</code> tendrá definido <code>value_1</code> como valor del identificador <code>arg1</code> , <code>value_2</code> como valor del identificador <code>arg2</code> y <code>value_3</code> como valor del identificador <code>arg3</code>. Por esto es importante saber el orden de los parámetros de una función.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="cf8af6f3-7bdd-4b67-8399-ad0cdff1e10e"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">El nombre parámetro y argumento refieren a lo mismo, es el identificador que especificamos en la definición de una función.</div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="50c404db-2bc7-49a2-866e-f1865dda465b"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">En casos donde no sabemos el orden de los parámetros pero si el nombre de los mismos, podemos invocar la función forzando el orden de los parámetros:
+Ej: <code>multiple_args(arg2=value_2, arg3=value_3, arg1=value_1)</code>
+Este código ejecuta exactamente igual que el llamado del bloque anterior.</div></figure><p id="a6ed5a30-a514-4191-98f5-882e0f8fd0fa" class="">
+</p><h2 id="a22cf346-9ac3-414a-9e6a-4b4de16a5a72" class="">Argumentos:</h2><p id="211aa1ea-e4bb-4b59-bc25-ef4e71d66aa1" class="">Las funciones definidas por el usuario, en Python siempre toman el valor del argumento por <strong>referencia </strong>esto implica que el valor es modificado.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="68ce1afc-3cfb-4030-8ef8-7f53e1e48f06" class="code"><code><span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	l<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+	<span class="token keyword">return</span> l
+
+my_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
+fun<span class="token punctuation">(</span>my_list<span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+After invocation
+>>> my_list
+>>> [1,,2, 3, 4]
+'''</span></code></pre><p id="3f43e249-83f5-4afd-99a2-07b9db4905ed" class="">
+</p><p id="41c22abf-94c7-4283-b3c5-e8bb9ffc02c2" class="">Los Argumentos pueden ser:<div class="indented"><ul id="f6ac8c9b-f5ca-4ffb-9715-ca5216fd1ae2" class="bulleted-list"><li>Requeridos</li></ul><ul id="c7ba0d9e-1b57-4ef6-8641-f23ad3c1e082" class="bulleted-list"><li>Default</li></ul><ul id="3ce35dd8-e64e-4399-91f4-a1de7c03f576" class="bulleted-list"><li><code>kayword arguments</code></li></ul><ul id="251b8e4b-e1ae-4e25-baf2-1241abe44fdb" class="bulleted-list"><li><code>variable-length arguments</code> ⚠️</li></ul></div></p><h3 id="14743fa4-2c1a-45b9-9c18-cce32bf1630b" class="">Requeridos:</h3><p id="3ecfc8a2-81d4-4d72-904f-b2b8303ac350" class="">Son aquellos que en al definición de la función no tienen un valor por default y que deben ser especificados a la hora de invocar.</p><p id="2d61487e-389b-4fc5-b591-47d4c1120fc7" class="">Ejemplo:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="305cd37a-5f8a-4075-a3d3-32654527dc9b" class="code"><code><span class="token keyword">def</span> <span class="token function">my_fun</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">return</span> <span class="token boolean">None</span>
+
+my_fun<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+This code will produce an error because no value was assign to the paramenter 'string'
+'''</span></code></pre><p id="0fa826ba-427f-454f-9407-38e7ca922f51" class="">
+</p><h3 id="29b28d91-c3a4-4520-acb1-eab22787dfc5" class="">Default:</h3><p id="52571844-8dad-4b5d-8f3c-5ee476dbfb4a" class="">En caso de que la definición de una función tenga valores por default para un argumento el mismo no es necesario especificar.</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="49578e02-3932-43fd-b722-e129288c225c" class="code"><code><span class="token comment"># Function definition is here</span>
+<span class="token keyword">def</span> <span class="token function">printinfo</span><span class="token punctuation">(</span> name<span class="token punctuation">,</span> age <span class="token operator">=</span> <span class="token number">35</span> <span class="token punctuation">)</span><span class="token punctuation">:</span>
+   <span class="token string">"This prints a passed info into this function"</span>
+   <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Name: "</span><span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+   <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Age "</span><span class="token punctuation">,</span> age<span class="token punctuation">)</span>
+
+
+<span class="token comment"># Now you can call printinfo function</span>
+printinfo<span class="token punctuation">(</span> age<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">"tony"</span> <span class="token punctuation">)</span>
+printinfo<span class="token punctuation">(</span> name<span class="token operator">=</span><span class="token string">"rose"</span> <span class="token punctuation">)</span>
+</code></pre><p id="9ec6fe8b-2b80-4556-b86c-d766b1c2c902" class="">
+</p><h3 id="43865652-dac0-4e1b-a079-b9e0517d4219" class="">Keyword Arguments:</h3><p id="e6ef7072-87ec-4632-832f-098ddcd61a0f" class="">Nos permite forzar a la asignación de los parámetros de una función sin importar del orden en que fueron escritos en su definición.</p><p id="6d6b80fe-fcfd-4cd9-b3a1-640b7bd941e1" class="">Ejemplo:</p><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css')</style><pre id="caa1b762-11c7-408f-a781-212fde987479" class="code"><code><span class="token keyword">def</span> <span class="token function">my_fun</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Hello </span><span class="token interpolation"><span class="token punctuation">{</span>name<span class="token punctuation">}</span></span><span class="token string"> you are {} years old"</span></span><span class="token punctuation">)</span>
+
+my_fun<span class="token punctuation">(</span>age<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token string">'santi'</span><span class="token punctuation">)</span></code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="f4d866ce-7fc9-4c52-a4a6-e3f6c51aebc3"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%">Una vez que se especificó un argumento del tipo <code>keyword</code> todos los demás argumentos deben ser especificados de la misma forma.</div></figure><p id="f14e4fe0-4e4c-4f1a-90b2-705877b28ed2" class="">
+</p><p id="92b09442-d6a9-4901-97c7-bd94fd56daac" class="">
+</p></div></article></body></html>
